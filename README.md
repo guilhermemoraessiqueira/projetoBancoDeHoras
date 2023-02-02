@@ -16,8 +16,6 @@ Here are the technologies used in this project.
 
 - Github
 
-### 1 - When you access, you will see the Home page <3
-
 
 ## Authors
 
