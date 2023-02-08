@@ -4,6 +4,15 @@
  */
 package projetobancodehoras;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import projetobancodehoras.bancoDeDados.DAO;
+import projetobancodehoras.bancoDeDados.conexao;
+
 /**
  *
  * @author Guilherme
@@ -15,6 +24,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        restaurarDadosComboBoxProjeto();
     }
 
     /**
@@ -56,7 +66,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         comboProjetos.setBackground(new java.awt.Color(102, 102, 102));
         comboProjetos.setForeground(new java.awt.Color(255, 255, 255));
-        comboProjetos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboProjetos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        comboProjetos.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                comboProjetosAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        comboProjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboProjetosActionPerformed(evt);
+            }
+        });
 
         L2.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         L2.setText("Data de início:");
@@ -246,6 +270,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_itemMenuEditProjActionPerformed
 
+    private void comboProjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProjetosActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_comboProjetosActionPerformed
+
+    private void comboProjetosAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_comboProjetosAncestorAdded
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_comboProjetosAncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -279,6 +314,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 new TelaPrincipal().setVisible(true);
             }
         });
+    }
+    
+    public void restaurarDadosComboBoxProjeto(){
+        
+        try{
+            DAO dao = new DAO();
+            ResultSet rs = dao.listaProjeto();
+            
+            while(rs.next()){
+                comboProjetos.addItem(rs.getString(1));
+            }
+        }catch(SQLException erro){
+            JOptionPane.showMessageDialog(null,"erro");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

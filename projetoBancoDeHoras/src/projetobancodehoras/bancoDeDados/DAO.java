@@ -5,9 +5,10 @@
 package projetobancodehoras.bancoDeDados;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+import java.sql.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import projetobancodehoras.classesPrincipais.Usuario;
 
 /**
@@ -29,6 +30,19 @@ public class DAO {
 
            }
        }
+    } 
+    
+    public ResultSet listaProjeto(){
+        Connection conn = conexao.obtemConexao();
+        String sql= "SELECT nome FROM projeto";
+        
+        try{
+            PreparedStatement ps = conn.prepareStatement(sql);
+            return ps.executeQuery();
+        }catch(SQLException e){
+            System.out.println("erro");
+            return null;
+        }
     }
     
     public void inserir (Usuario usuario) throws Exception{
