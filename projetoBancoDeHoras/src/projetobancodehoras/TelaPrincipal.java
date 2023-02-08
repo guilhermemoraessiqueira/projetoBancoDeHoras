@@ -42,9 +42,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         BtnEntrar = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         itemMenuAdcLogin = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menuItemAdcLogin = new javax.swing.JMenuItem();
+        itemMenuAdcProj = new javax.swing.JMenuItem();
         itemMenuEditProj = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -185,19 +185,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         itemMenuAdcLogin.setText("Menu");
 
-        jMenuItem1.setText("Adicionar Login");
-        itemMenuAdcLogin.add(jMenuItem1);
+        menuItemAdcLogin.setText("Adicionar Login");
+        menuItemAdcLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAdcLoginActionPerformed(evt);
+            }
+        });
+        itemMenuAdcLogin.add(menuItemAdcLogin);
 
-        itemMenuEditProj.setText("Adicionar Projeto");
+        itemMenuAdcProj.setText("Adicionar Projeto");
+        itemMenuAdcProj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuAdcProjActionPerformed(evt);
+            }
+        });
+        itemMenuAdcLogin.add(itemMenuAdcProj);
+
+        itemMenuEditProj.setText("Editar projeto");
         itemMenuEditProj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemMenuEditProjActionPerformed(evt);
             }
         });
         itemMenuAdcLogin.add(itemMenuEditProj);
-
-        jMenuItem3.setText("Editar projeto");
-        itemMenuAdcLogin.add(jMenuItem3);
 
         menuBar.add(itemMenuAdcLogin);
 
@@ -216,6 +226,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void itemMenuAdcProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuAdcProjActionPerformed
+        // TODO add your handling code here:
+                CadastroProjetos t = new CadastroProjetos();
+                t.setVisible(true);
+                this.dispose();
+                
+    }//GEN-LAST:event_itemMenuAdcProjActionPerformed
+
+    private void menuItemAdcLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAdcLoginActionPerformed
+        // TODO add your handling code here:
+                CadastroUsuario t = new CadastroUsuario();
+                t.setVisible(true);
+                this.dispose();
+    }//GEN-LAST:event_menuItemAdcLoginActionPerformed
 
     private void itemMenuEditProjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuEditProjActionPerformed
         // TODO add your handling code here:
@@ -268,13 +293,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextPane PtxtDescricao;
     private javax.swing.JComboBox<String> comboProjetos;
     private javax.swing.JMenu itemMenuAdcLogin;
+    private javax.swing.JMenuItem itemMenuAdcProj;
     private javax.swing.JMenuItem itemMenuEditProj;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem menuItemAdcLogin;
     // End of variables declaration//GEN-END:variables
 }
