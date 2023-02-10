@@ -35,6 +35,10 @@ public class conexao {
             return null;
         }
     }
+
+    static PreparedStatement prepareStatement(String select__from_projeto_WHERE_id__) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
        
     
     

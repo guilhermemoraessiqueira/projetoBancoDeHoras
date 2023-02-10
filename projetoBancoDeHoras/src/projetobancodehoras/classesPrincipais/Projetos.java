@@ -4,6 +4,8 @@
  */
 package projetobancodehoras.classesPrincipais;
 
+import java.util.Date;
+
 /**
  *
  * @author Guilherme
@@ -12,14 +14,19 @@ public class Projetos {
     private String nome;
     private String descricao;
     private int id;
+    private Date dataInicio;
+    private double horasTrabalhadas; 
 
-    public Projetos(String nome, String descricao, int id) {
+    public Projetos(String nome, String descricao, Date dataInicio, int id) {
         this.nome = nome;
         this.descricao = descricao;
         this.id = id;
+        this.dataInicio = dataInicio;
+        this.horasTrabalhadas = horasTrabalhadas;
     }
-    
-    
+
+    public Projetos() {
+    }
 
     public String getNome() {
         return nome;
@@ -44,6 +51,26 @@ public class Projetos {
     public void setId(int id) {
         this.id = id;
     }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public double getHorasTrabalhadas() {
+        return horasTrabalhadas;
+    }
+
+    public void setHorasTrabalhadas(double horasTrabalhadas) {
+        this.horasTrabalhadas = horasTrabalhadas;
+    }
+    
+    
+    
+    
     
     
     
