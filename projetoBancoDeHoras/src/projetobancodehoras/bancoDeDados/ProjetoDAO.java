@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import projetobancodehoras.classesPrincipais.Projetos;
+import projetobancodehoras.classesPrincipais.Usuario;
 /**
  *
  * @author Guilherme
@@ -67,6 +68,10 @@ public class ProjetoDAO {
                 }
         
     }
+    
+    
+    
+    
     
     
     

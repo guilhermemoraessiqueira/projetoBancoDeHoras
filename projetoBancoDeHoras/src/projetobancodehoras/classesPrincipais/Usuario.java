@@ -34,6 +34,12 @@ public class Usuario {
         this.id= id;
     }
 
+    public Usuario(int id, String login, String senha) {
+        this.id=id;
+        this.login=login;
+        this.senha=senha;
+     }
+
     public String getNome() {
         return nome;
     }
