@@ -21,7 +21,7 @@ public class conexao {
     private static String senha = "Euamominhamae26";
     private static String host = "localhost";
     private static String porta = "3306";
-    private static String bd = "teste";
+    private static String bd = "mydb";
     
     public static Connection obtemConexao (){
         try{

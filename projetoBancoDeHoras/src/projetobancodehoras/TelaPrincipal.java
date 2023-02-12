@@ -10,10 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import projetobancodehoras.bancoDeDados.DAO;
 import projetobancodehoras.bancoDeDados.conexao;
 import projetobancodehoras.classesPrincipais.Projetos;
 

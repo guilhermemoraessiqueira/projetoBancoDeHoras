@@ -3,11 +3,19 @@ package projetobancodehoras;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import projetobancodehoras.bancoDeDados.UsuarioDAO;
+import projetobancodehoras.bancoDeDados.conexao;
+import projetobancodehoras.classesPrincipais.Usuario;
 /**
  *
  * @author evand
  */
 public class CadastroUsuario extends javax.swing.JFrame {
+    Usuario usuario = new Usuario();
+    conexao conn = new conexao();
+    UsuarioDAO usuarioBD;
 
     /**
      * Creates new form CRUDTela
@@ -33,40 +41,40 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        inserirButton = new javax.swing.JButton();
-        excluirButton = new javax.swing.JButton();
-        atualizarButton = new javax.swing.JButton();
+        B1 = new javax.swing.JButton();
+        B2 = new javax.swing.JButton();
+        B3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableUsuario = new javax.swing.JTable();
         lbl1 = new javax.swing.JLabel();
         lbl3 = new javax.swing.JLabel();
         lbl2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        txtLogin = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tela do CRUD:"));
 
-        inserirButton.setText("Inserir");
-        inserirButton.addActionListener(new java.awt.event.ActionListener() {
+        B1.setText("Inserir");
+        B1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inserirButtonActionPerformed(evt);
+                B1ActionPerformed(evt);
             }
         });
 
-        excluirButton.setText("Excluir");
-        excluirButton.addActionListener(new java.awt.event.ActionListener() {
+        B2.setText("Excluir");
+        B2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                excluirButtonActionPerformed(evt);
+                B2ActionPerformed(evt);
             }
         });
 
-        atualizarButton.setText("Atualizar");
-        atualizarButton.addActionListener(new java.awt.event.ActionListener() {
+        B3.setText("Atualizar");
+        B3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atualizarButtonActionPerformed(evt);
+                B3ActionPerformed(evt);
             }
         });
 
@@ -78,7 +86,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Nome", "Login", "Senha"
+                "Id", "Nome", "Login"
             }
         ));
         jScrollPane1.setViewportView(tableUsuario);
@@ -109,16 +117,16 @@ public class CadastroUsuario extends javax.swing.JFrame {
                                 .addComponent(lbl3)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)))
+                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                            .addComponent(txtLogin)
+                            .addComponent(txtSenha)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(inserirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(B1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(excluirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(B2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(atualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(B3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -126,29 +134,28 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl3)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(excluirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inserirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(atualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(44, 44, 44)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl1)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl2)
+                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl3)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(B2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(B1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(B3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,17 +177,42 @@ public class CadastroUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inserirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirButtonActionPerformed
-     
-    }//GEN-LAST:event_inserirButtonActionPerformed
+    private void B1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B1ActionPerformed
+     usuario.setNome(txtNome.getText());
+     usuario.setLogin(txtLogin.getText());
+     usuario.setSenha(txtSenha.getText());
+        int resultado = JOptionPane.showConfirmDialog(null, "Cadastro do Usuário : \n Login: " + txtLogin.getText() + "\n Senha: " + txtSenha.getText() + "\n Nome: " + txtNome.getText());
+        
+        if(resultado == JOptionPane.YES_OPTION){
+            try{
+                
+                usuarioBD = new UsuarioDAO(conn);
+                usuarioBD.insert(usuario);
+                
+            } catch (SQLException ex) {
+             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (ClassNotFoundException ex) {
+             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (Exception ex) {
+             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+         }if (resultado == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Cadastro cancelado");
+            }
+        }
+        
+    }//GEN-LAST:event_B1ActionPerformed
 
-    private void excluirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirButtonActionPerformed
-       
-    }//GEN-LAST:event_excluirButtonActionPerformed
+    private void B2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B2ActionPerformed
+        TelaExcluir t = new TelaExcluir();
+        t.setVisible(true);
+        this.dispose();
+        
+        
+    }//GEN-LAST:event_B2ActionPerformed
 
-    private void atualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarButtonActionPerformed
+    private void B3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B3ActionPerformed
        
-    }//GEN-LAST:event_atualizarButtonActionPerformed
+    }//GEN-LAST:event_B3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,22 +253,29 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private void atualizaTabela() throws Exception{
        DefaultTableModel model = (DefaultTableModel)tableUsuario.getModel();
        model.setRowCount(0);
-       String sql = "SELECT * FROM tb_usuario";
-       
+       String sql = "SELECT * FROM usuario";
+       try (Connection conn = conexao.obtemConexao();
+               PreparedStatement ps = conn.prepareStatement(sql)){
+           ResultSet rs = ps.executeQuery();
+           
+           while(rs.next()){
+               model.addRow(new String[]{rs.getString(1), rs.getString(2), rs.getString(3)}); 
+           }
+       }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton atualizarButton;
-    private javax.swing.JButton excluirButton;
-    private javax.swing.JButton inserirButton;
+    private javax.swing.JButton B1;
+    private javax.swing.JButton B2;
+    private javax.swing.JButton B3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lbl3;
     private javax.swing.JTable tableUsuario;
+    private javax.swing.JTextField txtLogin;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
