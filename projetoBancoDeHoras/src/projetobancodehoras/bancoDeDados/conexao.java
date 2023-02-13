@@ -36,9 +36,11 @@ public class conexao {
         }
     }
 
-    static PreparedStatement prepareStatement(String select__from_projeto_WHERE_id__) {
+    static PreparedStatement prepareStatement(String sql) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+   
        
     
     

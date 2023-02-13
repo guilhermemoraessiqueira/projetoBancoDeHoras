@@ -11,21 +11,36 @@ import java.util.Date;
  * @author Guilherme
  */
 public class Projetos {
+    private int id;    
     private String nome;
     private String descricao;
-    private int id;
+    private Usuario usuario;
+    private int usuarioId;
+    
     private Date dataInicio;
-    private double horasTrabalhadas; 
+    private double horasTrabalhadas;
+    
 
-    public Projetos(String nome, String descricao, Date dataInicio, int id) {
+    public Projetos(String nome, String descricao, Date dataInicio, int id, int usuarioId) {
         this.nome = nome;
         this.descricao = descricao;
         this.id = id;
         this.dataInicio = dataInicio;
         this.horasTrabalhadas = horasTrabalhadas;
+        this.usuario = usuario;
     }
 
     public Projetos() {
+    }
+
+    public Projetos(String nome, String descricao, Usuario usuario) {
+      this.nome = nome;
+      this.descricao = descricao;
+      this.usuario = usuario;
+   }
+
+
+    public Projetos(String nome, String descricao) {
     }
 
     public String getNome() {
@@ -65,8 +80,28 @@ public class Projetos {
     }
 
     public void setHorasTrabalhadas(double horasTrabalhadas) {
+     
         this.horasTrabalhadas = horasTrabalhadas;
     }
+
+  public Usuario getUsuario() {
+      return usuario;
+   }
+   
+   public void setUsuario(Usuario usuario) {
+      this.usuario = usuario;
+   }
+
+    public int getIdUsuario() {
+        return usuarioId;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.usuarioId = idUsuario;
+    }
+   
+   
+    
     
     
     

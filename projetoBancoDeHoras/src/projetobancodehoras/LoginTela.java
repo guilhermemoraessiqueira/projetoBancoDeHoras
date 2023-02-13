@@ -1,5 +1,9 @@
 package projetobancodehoras;
 
+import javax.swing.JOptionPane;
+import projetobancodehoras.bancoDeDados.UsuarioDAO;
+import projetobancodehoras.classesPrincipais.Usuario;
+
 public class LoginTela extends javax.swing.JFrame {
 
     /**
@@ -104,6 +108,27 @@ public class LoginTela extends javax.swing.JFrame {
     }//GEN-LAST:event_sairButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        String login = loginTextField.getText();
+        //pega a senha do usuário
+        String senha = new String(senhaPasswordField.getPassword());
+        
+        try{
+            //verifica se o usuário é válido
+            Usuario usuario = new Usuario(login,senha);
+            UsuarioDAO dao = new UsuarioDAO();
+            
+            if(dao.existe(usuario)){
+                JOptionPane.showMessageDialog(null,"Bem vindo, " + usuario.getLogin()+ "!");
+                TelaPrincipal t = new TelaPrincipal();
+                t.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuário inválido.");
+            }     
+        }catch(Exception e){
+            // Não é necessário essa parte
+            JOptionPane.showMessageDialog(null,"Problemas técnicos");
+        }
         
     }//GEN-LAST:event_loginButtonActionPerformed
 

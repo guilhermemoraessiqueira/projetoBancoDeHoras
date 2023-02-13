@@ -48,13 +48,27 @@ public class UsuarioDAO {
     }
     
     public void atualizar (Usuario usuario) throws Exception{
-       String sql = "UPDATE usuario SET nome = ?, senha = ? WHERE idUsuario = ?";
+       String sql = "UPDATE usuario SET login = ?, senha = ? WHERE idUsuario = ?";
        try (Connection conn = conexao.obtemConexao();
                PreparedStatement ps = conn.prepareStatement(sql)){
-           ps.setString(1, usuario.getNome());
+           ps.setString(1, usuario.getLogin());
            ps.setString(2, usuario.getSenha());
            ps.setInt(3, usuario.getId());
            ps.execute();
        }
-    } 
+    }
+    
+    public boolean existe (Usuario usuario) throws Exception{
+       String sql = "SELECT * FROM usuario WHERE login = ? AND senha = ?";
+       try (Connection conn = conexao.obtemConexao();
+               PreparedStatement ps = conn.prepareStatement(sql)){
+           ps.setString(1, usuario.getLogin());
+           ps.setString(2, usuario.getSenha());
+           try (ResultSet rs = ps.executeQuery()){
+               System.out.println(sql);
+               return rs.next();
+               
+           }
+       }
+    }
 }

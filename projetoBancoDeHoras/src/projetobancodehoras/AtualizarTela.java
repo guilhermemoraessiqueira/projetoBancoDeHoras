@@ -99,7 +99,7 @@ public class AtualizarTela extends javax.swing.JFrame {
        String senha = senhaTextField.getText();
        
        try{
-            Usuario usuario = new Usuario();
+            Usuario usuario = new Usuario(id,login,senha);
             UsuarioDAO dao = new UsuarioDAO();
             dao.atualizar(usuario);    
             JOptionPane.showMessageDialog(null,"Usuário atualizado!!");              

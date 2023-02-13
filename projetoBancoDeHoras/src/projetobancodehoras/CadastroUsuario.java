@@ -211,7 +211,9 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_B2ActionPerformed
 
     private void B3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B3ActionPerformed
-       
+       AtualizarTela t = new AtualizarTela();
+       t.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_B3ActionPerformed
 
     /**

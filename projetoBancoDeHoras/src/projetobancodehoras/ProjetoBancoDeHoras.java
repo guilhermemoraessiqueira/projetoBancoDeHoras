@@ -15,6 +15,10 @@ public class ProjetoBancoDeHoras {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        LoginTela t = new LoginTela();
+        t.setVisible(true);
+        
+                
     }
     
 }
