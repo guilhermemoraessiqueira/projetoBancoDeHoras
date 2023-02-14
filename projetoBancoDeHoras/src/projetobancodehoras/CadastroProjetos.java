@@ -272,8 +272,15 @@ if (resultado == JOptionPane.NO_OPTION) {
     private void atualizaTabela() throws Exception{
        DefaultTableModel model = (DefaultTableModel)tableUsuario.getModel();
        model.setRowCount(0);
-       String sql = "SELECT * FROM tb_usuario";
-       
+       String sql = "SELECT * FROM projeto";
+       try (Connection conn = conexao.obtemConexao();
+               PreparedStatement ps = conn.prepareStatement(sql)){
+           ResultSet rs = ps.executeQuery();
+           
+           while(rs.next()){
+               model.addRow(new String[]{rs.getString(1), rs.getString(2), rs.getString(3)}); 
+           }
+       }
     }
     
 
