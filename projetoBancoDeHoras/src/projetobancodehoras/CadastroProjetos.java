@@ -3,7 +3,11 @@ package projetobancodehoras;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projetobancodehoras.bancoDeDados.ProjetoDAO;
+import projetobancodehoras.bancoDeDados.UsuarioDAO;
+import projetobancodehoras.bancoDeDados.conexao;
 import projetobancodehoras.classesPrincipais.Projetos;
 import projetobancodehoras.classesPrincipais.Usuario;
 /**
@@ -11,9 +15,15 @@ import projetobancodehoras.classesPrincipais.Usuario;
  * @author evand
  */
 public class CadastroProjetos extends javax.swing.JFrame {
+    
+    Projetos projeto = new Projetos();
+    conexao conn = new conexao();
+    ProjetoDAO projetoBD = new ProjetoDAO();
+    
+    
 
     /**
-     * Creates new form CRUDTela
+     * Creates new form 
      */
     public CadastroProjetos() {
         super("Cadastro Projetos:");
@@ -43,9 +53,11 @@ public class CadastroProjetos extends javax.swing.JFrame {
         tableUsuario = new javax.swing.JTable();
         lbl2 = new javax.swing.JLabel();
         lbl1 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
+        txtNomeProjeto = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tptDesc = new javax.swing.JTextPane();
+        lbl4 = new javax.swing.JLabel();
+        txtIdUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +105,9 @@ public class CadastroProjetos extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(tptDesc);
 
+        lbl4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lbl4.setText("Id de usuário");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -104,7 +119,7 @@ public class CadastroProjetos extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(lbl1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNomeProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(lbl2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -114,28 +129,34 @@ public class CadastroProjetos extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(excluirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(atualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(atualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl4)
+                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl1)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNomeProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl2)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(inserirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(excluirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,6 +184,42 @@ public class CadastroProjetos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inserirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirButtonActionPerformed
+        
+        String nomeProjeto;
+        String descricaoProjeto;
+        String id;
+        int idConvert;
+
+        nomeProjeto = txtNomeProjeto.getText();
+        descricaoProjeto = tptDesc.getText();
+        id = txtIdUsuario.getText();
+        idConvert = Integer.parseInt(id);
+        
+        
+        
+        projeto.setNome(nomeProjeto);
+        projeto.setDescricao(descricaoProjeto);
+        projeto.setUsuarioId(idConvert);
+        
+        
+        int resultado = JOptionPane.showConfirmDialog(null, "Cadastro do projeto : \n Nome: " + txtNomeProjeto.getText() + "\n Descrição: " + tptDesc.getText() + "\n Id usuário: " + txtIdUsuario.getText());
+        
+        if(resultado == JOptionPane.YES_OPTION){
+            try{        
+                
+                ProjetoDAO dao = new ProjetoDAO();             
+                dao.inserir(projeto); 
+                //System.out.println("1");
+                
+            } catch (Exception ex) {
+                System.out.println("ERRO 12");
+             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, "Erro!");
+         }
+if (resultado == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Cadastro cancelado");
+            }
+        }
         
     }//GEN-LAST:event_inserirButtonActionPerformed
 
@@ -218,6 +275,7 @@ public class CadastroProjetos extends javax.swing.JFrame {
        String sql = "SELECT * FROM tb_usuario";
        
     }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -229,8 +287,10 @@ public class CadastroProjetos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
+    private javax.swing.JLabel lbl4;
     private javax.swing.JTable tableUsuario;
     private javax.swing.JTextPane tptDesc;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtIdUsuario;
+    private javax.swing.JTextField txtNomeProjeto;
     // End of variables declaration//GEN-END:variables
 }

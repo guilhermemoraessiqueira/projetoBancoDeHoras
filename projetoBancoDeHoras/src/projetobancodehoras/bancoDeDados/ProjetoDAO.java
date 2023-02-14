@@ -4,32 +4,43 @@
  */
 package projetobancodehoras.bancoDeDados;
 
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.JOptionPane;
 import projetobancodehoras.classesPrincipais.Projetos;
-import projetobancodehoras.classesPrincipais.Usuario;
 /**
  *
  * @author Guilherme
  */
 public class ProjetoDAO {
-
-    public static void inserir(Projetos projeto) {
-     }
+    private Connection c;
     
-    public void inserir(Projetos projeto, int idUsuario) throws SQLException {
-      String sql = "INSERT INTO projeto (Nome, Descrição, Usuario_idUsuario) VALUES (?, ?, ?)";
-      PreparedStatement stmt = conexao.prepareStatement(sql);
-      stmt.setString(1, projeto.getNome());
-      stmt.setString(2, projeto.getDescricao());
-      stmt.setInt(3, idUsuario);
-      stmt.execute();
+    public ProjetoDAO(conexao conn) throws SQLException, ClassNotFoundException {
+        c = conn.obtemConexao();
+    }
+    public ProjetoDAO(){
+        
+    }
+    
+    
+    public void inserir(Projetos projeto) throws SQLException {
+      int idUsuario=0;  
+      String sql = "INSERT INTO projeto (Nome, Descrição, Usuario_idUsuario) VALUES (?, ?, ?);";
+      
+      try (Connection conn = conexao.obtemConexao();
+               PreparedStatement ps = conn.prepareStatement(sql)){
+          
+          System.out.println(projeto.getNome()+" IY");
+          System.out.println(" Nome "+projeto.getNome()+" Descrição "+projeto.getDescricao()+" id do usuario "+projeto.getUsuarioId());
+          
+           ps.setString(1, projeto.getNome());
+            ps.setString(2, projeto.getDescricao());
+            ps.setInt(3, projeto.getUsuarioId());
+            ps.execute();
+            System.out.println(ps);
+            }
+
    }
  
     
