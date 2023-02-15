@@ -7,7 +7,9 @@ package projetobancodehoras.bancoDeDados;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 import projetobancodehoras.classesPrincipais.Projetos;
 /**
  *
@@ -22,6 +24,17 @@ public class ProjetoDAO {
     public ProjetoDAO(){
         
     }
+    
+    public void excluir (Projetos projeto) throws Exception{
+            String sql = "DELETE FROM projeto WHERE idProjeto= ? ";
+       try (Connection conn = conexao.obtemConexao();
+               PreparedStatement ps = conn.prepareStatement(sql)){
+           ps.setInt(1, projeto.getId());
+           ps.execute();
+            }
+    }
+    
+    
     
     
     public void inserir(Projetos projeto) throws SQLException {

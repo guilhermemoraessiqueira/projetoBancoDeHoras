@@ -38,6 +38,11 @@ public class Projetos {
       
    }
 
+    public Projetos(int id) {
+        this.id= id;
+    }
+    
+
     public int getId() {
         return id;
     }

@@ -1,10 +1,11 @@
-package projetobancodehoras;
+package projetobancodehoras.projetos;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projetobancodehoras.CadastroUsuario;
 import projetobancodehoras.bancoDeDados.ProjetoDAO;
 import projetobancodehoras.bancoDeDados.UsuarioDAO;
 import projetobancodehoras.bancoDeDados.conexao;
@@ -224,7 +225,9 @@ if (resultado == JOptionPane.NO_OPTION) {
     }//GEN-LAST:event_inserirButtonActionPerformed
 
     private void excluirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirButtonActionPerformed
-       
+       TelaExcluirProjeto t = new TelaExcluirProjeto();
+        t.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_excluirButtonActionPerformed
 
     private void atualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarButtonActionPerformed
@@ -269,10 +272,10 @@ if (resultado == JOptionPane.NO_OPTION) {
         });
     }
     
-    private void atualizaTabela() throws Exception{
-       DefaultTableModel model = (DefaultTableModel)tableUsuario.getModel();
-       model.setRowCount(0);
-       String sql = "SELECT * FROM projeto";
+    public void atualizaTabela() throws Exception{
+        DefaultTableModel model = (DefaultTableModel)tableUsuario.getModel();
+        model.setRowCount(0);
+        String sql = "SELECT * FROM projeto";
        try (Connection conn = conexao.obtemConexao();
                PreparedStatement ps = conn.prepareStatement(sql)){
            ResultSet rs = ps.executeQuery();
